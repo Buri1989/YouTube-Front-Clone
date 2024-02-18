@@ -7,7 +7,7 @@ const YouTubeMainComp = () => {
     const [videos, setVideos] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const videosPerPage = 10;
-    const maxVideos = 50; // Maximum number of videos to fetch initially
+    const maxVideos = 50; /* Maximum number of videos to fetch initially - change if needed*/
 
     const handleSearch = async (searchItem) => {
         const { videos: fetchedVideos } = await searchVideos(searchItem, maxVideos);
@@ -19,9 +19,7 @@ const YouTubeMainComp = () => {
         window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank')
     }
 
-    const indexOfLastVideo = currentPage * videosPerPage;
-    const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-    const currentVideos = videos.slice(indexOfFirstVideo, indexOfLastVideo);
+
 
     const paginate = async (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -29,6 +27,11 @@ const YouTubeMainComp = () => {
         const nextPageVideos = await searchVideos('searchItem', videosPerPage, startIndex);
         setVideos(nextPageVideos);
     }
+
+    const sortedVideos = videos.sort((high, low) => low.rating - high.rating);
+    const indexOfLastVideo = currentPage * videosPerPage;
+    const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+    const currentVideos = sortedVideos.slice(indexOfFirstVideo, indexOfLastVideo);
 
     return (
         <div className="container">

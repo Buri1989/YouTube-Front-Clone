@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './youTubeStyle.css'
 
 
 const SearchBarComp = ({ onSearch }) => {
@@ -9,7 +10,7 @@ const SearchBarComp = ({ onSearch }) => {
     };
 
     return (
-        <>
+        <div className="search-bar">
             <input
                 type="text"
                 placeholder="Search."
@@ -17,7 +18,7 @@ const SearchBarComp = ({ onSearch }) => {
                 onChange={(event) => setSearchItem(event.target.value)}
             />
             <button onClick={handleSearch}>Search</button>
-        </>
+        </div>
     )
 }
 
