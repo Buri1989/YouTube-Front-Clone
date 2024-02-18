@@ -1,16 +1,21 @@
 import axios from "axios";
 import log from "logger";
 
-export async function searchVideos(searchItem) {
+export async function searchVideos(
+  searchItem,
+  maxResults = 10,
+  pageToken = ""
+) {
   try {
     const response = await axios.get(
       "https://www.googleapis.com/youtube/v3/search",
       {
         params: {
           part: "snippet",
-          maxResults: 10,
+          maxResults: maxResults,
           q: searchItem,
           order: "rating",
+          pageToken: pageToken,
           key: "AIzaSyA73-98KyFR_eWEzUudsOVw3ocRQxKBkgA",
         },
       }
@@ -47,9 +52,12 @@ export async function searchVideos(searchItem) {
         rating: rating,
       };
     });
-    return videosWithRating;
+    return {
+      videos: videosWithRating,
+      nextPageToken: response.data.nextPageToken,
+    };
   } catch (error) {
     log.info("Error fetching data:", error);
-    return [];
+    return { videos: [], nextPageToken: "" };
   }
 }
