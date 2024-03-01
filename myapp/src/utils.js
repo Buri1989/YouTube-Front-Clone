@@ -16,7 +16,7 @@ export async function searchVideos(
           q: searchItem,
           order: "rating",
           pageToken: pageToken,
-          key: "AIzaSyA73-98KyFR_eWEzUudsOVw3ocRQxKBkgA",
+          key: "key",
         },
       }
     );
@@ -29,7 +29,7 @@ export async function searchVideos(
         params: {
           part: "snippet,statistics",
           id: videoIds,
-          key: "AIzaSyA73-98KyFR_eWEzUudsOVw3ocRQxKBkgA",
+          key: "key",
         },
       }
     );
